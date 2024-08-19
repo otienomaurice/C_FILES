@@ -1,4 +1,6 @@
+#include <stdint.h>
 #include "lcd.h"
+#include "avr_io.h"
 int main(){
 
 return 0;
