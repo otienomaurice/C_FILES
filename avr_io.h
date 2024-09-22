@@ -131,3 +131,17 @@
 #define PORTD6 6
 #define PORTD7 7
 #endif
+
+
+// Define the register addresses for ATmega328P
+#define TCCR1A (*(volatile uint8_t*)0x80) // Timer/Counter1 Control Register A
+#define TCCR1B (*(volatile uint8_t*)0x81) // Timer/Counter1 Control Register B
+#define TIMSK1 (*(volatile uint8_t*)0x6F)  // Timer/Counter Interrupt Mask Register 1
+#define TCNT1 (*(volatile uint16_t*)0x84)  // Timer/Counter1
+
+
+
+// Define relevant bits for TCCR1B
+#define CS10 0 // Clock Select Bit 0
+#define CS11 1 // Clock Select Bit 1
+#define TOIE1 0 // Timer/Counter1 Overflow Interrupt Enable
