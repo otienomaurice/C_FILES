@@ -1,38 +1,77 @@
-/*
- * Simple Timer Module
- * Read & calculate elapsed time with 32-bit timestamps
- * Note that the hardware_time module provides similar
- * functions using 64-bit timestamps
- * 
- * Caution: Rollover on 32-bit time measurementswill occur 
- * once every 2^32 microseconds (11.93 hours).  We handle one
- * rollover with the code provided, but if the time between
- * measurements exceeds twice this amount (23.8 hours) then
- * the calculation will be incorrect.  For measurements of
- * this duration, consider using the real-time clock instead
+/* 
+ * File:   ztimer - implementation of the 
+ * Author: John Nestor, Lafayette College
  *
- * ECE 414 - Lafayette College
- * J. Nestor July 2023
+ * This module implements a timer matching the functionality of the interrupt-
+ * driven timer described in Section 4.5 of the Zybook "Programming Embedded 
+ * Systems".  A key difference is that the timer flag is encapsulated in the 
+ * module calling ReadTimerFlag returns its value and clears the flag.  This
+ * means that we don't have to use a global variable to pass the flag.
  */
 
-#include "pico/stdlib.h"
-#include "hardware/timer.h"
-#include "timer.h"
+#include "stdio.h"
 #include "pico/stdlib.h"
 #include "stdint.h"
+#include "stdbool.h"
+#include "ztimer.h"
 
-uint32_t timer_read() {
-    return time_us_32();
+// declare timer_flag variable as volatile because
+// the ISR can change it as well as regular code
+static volatile bool timer_flag = false;
+static uint32_t timer_period_ms = 1000;
+static bool timer_on = false;
+
+// Timer ISR
+bool repeating_timer_callback(struct repeating_timer *t)
+{
+    timer_flag = true;
+    return true;
 }
 
-// return the elapsed time in us between two 32-bit timestamps
-// note the need to deal with rollovers
-uint32_t timer_elapsed_us(uint32_t t1, uint32_t t2) {
-    if (t2 > t1) return t2 - t1;
-    else return UINT32_MAX - t1 + t2 + 1;
+// Create a repeating timer that calls repeating_timer_callback.
+// If the delay is > 0 then this is the delay between the previous callback ending and the next starting.
+// If the delay is negative (see below) then the next call to the callback will be exactly x us after the
+// start of the call to the last callback
+struct repeating_timer timer;
+
+// start the timer
+void zTimerOn()
+{
+    if (!timer_on)
+    {
+        // Negative delay so means we will call repeating_timer_callback, and call it again
+        // 25us (40kHz) later regardless of how long the callback took to execute
+        add_repeating_timer_ms(-timer_period_ms, repeating_timer_callback, NULL, &timer);
+    }
 }
 
-// return the elapsed time in use betwen two 32-bit timestamps
-uint32_t timer_elapsed_ms(uint32_t t1, uint32_t t2) {
-    return timer_elapsed_us(t1, t2) / 1000;
+// set the timer period.  If the timer is already
+// running, stop it and restart it.
+void zTimerSet(uint32_t period_ms)
+{
+    if (period_ms != timer_period_ms)
+    {
+        timer_period_ms = period_ms;
+        if (timer_on)
+        {
+            zTimerOff();
+            zTimerOn();
+        }
+    }
+}
+
+// turn off the timer
+void zTimerOff() {
+    cancel_repeating_timer(&timer);
+}
+
+// read and return the timer flag value
+// SIDE EFFECT: clear the flag
+bool zTimerReadFlag() {
+    if (timer_flag) {
+        timer_flag = false;
+        return true;
+    } else {
+        return false;
+    }
 }

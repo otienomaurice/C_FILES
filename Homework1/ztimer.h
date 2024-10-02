@@ -1,23 +1,31 @@
-/*
- * Simple Timer Module
- * Read & calculate elapsed time with 32-bit timestamps
- * Note that the hardware_time module provides similar
- * functions using 64-bit timestamps
+/* 
+ * File:   ztimer - implementation of the 
+ * Author: John Nestor, Lafayette College
  *
- * ECE 414 - Lafayette College
- * J. Nestor July 2023
+ * This module implements a timer matching the functionality of the interrupt-
+ * driven timer described in Section 4.5 of the Zybook "Programming Embedded 
+ * Systems".  A key difference is that the timer flag is encapsulated in the 
+ * module calling ReadTimerFlag returns its value and clears the flag.  This
+ * means that we don't have to use a global variable to pass the flag.
  */
 
-#ifndef TIMER_H
-#define TIMER_H
+#ifndef ZTIMER_H
+#define	ZTIMER_H
+#include <inttypes.h>
 
-#include "pico/stdlib.h"
-#include "hardware/timer.h"
+// set the period of the zTimer, stopping
+// and restarting the timer if it is running
+void zTimerSet(uint32_t period);
 
-uint32_t timer_read();
+// enable the timer and turn on the interrupt
+void zTimerOn();
 
-uint32_t timer_elapsed_us(uint32_t t1, uint32_t t2);
+// turn off the timer
+void zTimerOff();
 
-uint32_t timer_elapsed_ms(uint32_t t1, uint32_t t2);
+// read and return the timer flag value
+// SIDE EFFECT: clear the flag
+bool zTimerReadFlag();
 
-#endif
+#endif	/* ZTIMER_H */
+

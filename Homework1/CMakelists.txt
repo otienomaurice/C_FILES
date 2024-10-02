@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.13)
 include(pico_sdk_import.cmake)
-project(Lab3)
+project(Homework1)
 pico_sdk_init()
 add_executable(main.c alarm_intf.c wrnfsm.c alrmfsm.c)
 
