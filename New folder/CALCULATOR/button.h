@@ -1,5 +1,4 @@
 
-
 #include "stdint.h"
 #include "stdbool.h"
 #ifndef BUTTON_H
@@ -20,6 +19,9 @@ struct Button
     uint32_t time;
     char c;
 };
+
+//initialize button
+void initButton(struct Button b);
 //creates a button with the properties given in the parameters 
 struct Button createButton(int16_t x, int16_t y, int16_t w, int16_t h, char c);
 //gets the status of the button
