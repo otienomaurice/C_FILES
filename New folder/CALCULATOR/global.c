@@ -45,7 +45,7 @@ _global_opperand2 = 0;
 //--------------------------------------------------------------------------------------
 // sets the operator to invalid, this does nothing to calculation
 void  clear_global_operator(){
- _global_operator = '|';
+ _global_operator = ' ';
 }
 //----------------------------------------------------------------------------------------
 //clear verything global

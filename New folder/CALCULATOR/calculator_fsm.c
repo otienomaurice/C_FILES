@@ -21,6 +21,8 @@ void init_calculator_fsm(){
     equal_pressed = false;
     clear_pressed = false;
     error = false;
+    operator_first_press_before_operand = true;
+    clear_all();
 }
 
 //advance the fsm by one cycle 
@@ -35,6 +37,7 @@ void tick_calculator_fsm(){
              equal_pressed = false;
              clear_pressed = false;
              error = false;
+             operator_first_press_before_operand = true;
         //clear the global variables setting them to zero
          clear_all();
         //DSIPLAY CURSOR
@@ -49,13 +52,18 @@ void tick_calculator_fsm(){
     case INPUT_OPERAND1:
     //if button fill returns an operator, set the input to completed
     //advance  to the operator state
+    display_text();
+    //this will either update the operands , the operator , or set clear pressed or equals pressed
     char temp = button_info_fill();
-     display_text();
      //check for negative
-     if(temp == '-')
-     update_Display(temp);
+     if(temp == '-' && operator_first_press_before_operand)
      {
+        update_Display(temp);
         operator_pressed = false;
+        operator_first_press_before_operand = false;
+        //clear global operator
+        clear_global_operator();
+        //set the
      }
        if (operator_pressed){
        input_operand1_complete = true;
