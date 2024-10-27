@@ -1,3 +1,4 @@
+#include <string.h>
 #include "pico/stdlib.h"
 #include "stdint.h"
 #include "stdbool.h"
@@ -6,64 +7,12 @@
 #include "limits.h"
 #include "button.h"
 #include "timer.h"
+#include "global.h"
 
-//global state operands 
- float opperand1 = 0; 
- float opperand2 = 0; 
-  //global state operator
- char  operator;
- //global state display
- //wilol be used to display all the text to the screen 
- char display[50];
-//
-int btnCnt = 0;
 uint32_t current_time, button_debounce_time;
-//create an array to hold 16 buttons
-struct Button buttons[16];
-//-----------------------------------------------------------------------------------------
-//------------------------------------------------------------------------------------------
-//initialize each button
-void initButton(struct Button b)
-{
-    buttons[btnCnt] = b;
-    btnCnt++;
-}
-//---------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------
-//updates the value of the operand
-void addToOpperand(int32_t *opperand, int value)
-{
-    float result = *opperand * 10 + value;
-    if (((*opperand > 0) && (result < *opperand)) || result > INT32_MAX)
-    {
-        return; // dont do anything because we are at the max number so just ignore the input
-    }
-    *opperand = result; // set the value
-}
-//---------------------------------------------------------------------------------------
-//---------------------------------------------------------------------------------------
-//creates all buttons
-void create_All_Buttons(){
-    initButton(createButton(0, 40, 83, 50, '7'));
-    initButton(createButton(83, 40, 83, 50, '8'));
-    initButton(createButton(83 * 2, 40, 83, 50, '9'));
-    initButton(createButton(0, 50 * 1 + 40, 83, 50, '4'));
-    initButton(createButton(83, 50 * 1 + 40, 83, 50, '5'));
-    initButton(createButton(83 * 2, 50 * 1 + 40, 83, 50, '6'));
 
-    initButton(createButton(0, 50 * 2 + 40, 83, 50, '1'));
-    initButton(createButton(83, 50 * 2 + 40, 83, 50, '2'));
-    initButton(createButton(83 * 2, 50 * 2 + 40, 83, 50, '3'));
-    initButton(createButton(0, 50 * 3 + 40, 83, 50, '0'));
-    // the next set of buttons
-    initButton(createButton(83 * 3, 50 * 0 + 40, 83, 50, '+'));
-    initButton(createButton(83 * 3, 50 * 1 + 40, 83, 50, '-'));
-    initButton(createButton(83 * 3, 50 * 2 + 40, 83, 50, '/'));
-    initButton(createButton(83 * 3, 50 * 3 + 40, 83, 50, 'x'));
-    initButton(createButton(83 * 2, 50 * 3 + 40, 83, 50, 'C'));
-    initButton(createButton(83 * 1, 50 * 3 + 40, 83, 50, '='));
-}
-//---------------------------------------------------------------------------------------
+
+
 //---------------------------------------------------------------------------------------
 //execute the main logic of the culator
 void main()
@@ -97,24 +46,47 @@ create_All_Buttons();
                 button_debounce_time = current_time;
             }
         }
-//check for evry button, if pressed add the value returned to operand
+//check for every button, if pressed add the value returned to operand
         for (int i = 0; i < btnCnt; i++)
-        {
+        {    //if the button is pressed, check if it is a digit, operator or command
             if (buttons[i].pressed)
             {
+                
+                switch(buttons[i].c){
+                     case 'c':
+                         clear_display();
+                     break;
+                
+                //if button is an equals
+                     case '=': 
+                         //do calculation
+                         //set result to value of calculation
+                         //display the result
+                     break;
+                //if button is an operator, update the operator
+                     case '+':
+                     update_operator(&operator,'+');
+                     break;
+                     case '-':
+                     update_operator(&operator,'-');
+                     break;
+                     case 'x':
+                     update_operator(&operator,'x');
+                     break;
+                     case '/':
+                     update_operator(&operator,'/');
+                     break;
+                    default:
+                     int value = buttons[i].c & 0b00001111;
+                     addToOpperand(&opperand1, (float)value);
 
-                int value = buttons[i].c & 0b00001111;
-                addToOpperand(&opperand1, (float)value);
+                     break;
+                }
+                
+                
+
+                
             }
         }
-//render all buttons on the screen
-        for (int i = 0; i < btnCnt; i++)
-        {
-            render_button(&buttons[i]);
-        }
-//render the opernd on the screen
-        render_text(display);
 
-        
-    }
 }

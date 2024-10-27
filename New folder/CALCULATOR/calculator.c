@@ -1,11 +1,17 @@
-#include "calculator.h"
+#include <stdbool.h>
 #include <string.h>
+#include <limits.h>
+#include "calculator.h"
+
+
 //this file does the arithmetic operation on two operands in the order
 //in which they appear
 //the functions add, sub, mult, and div handle addition, subtraction,
 // multiplication and division respectively.
-
-//returns the result of the given operation
+//they return the corresponding results and if no error occurs, a -1 
+//if any other error occurs and a -2 for division by zero error
+//--------------------------------------------------------------------------------
+//add the two operands
 int32_t add( Calculator *calc){
     //check for overflow
     if(calc->operand1 + calc-> operand2 > INT32_MAX){ 
@@ -14,16 +20,22 @@ int32_t add( Calculator *calc){
     }
     else return (calc->operand1 + calc->operand2);
 }
+//----------------------------------------------------------------------------------
 
+//-----------------------------------------------------------------------------------
+//SUBTRACT THE TWO OPERANDS
 int32_t sub(Calculator *calc){
      //check for overflow
-     if(calc->operand1 - calc-> operand2 < INT32_MIN){
+     if((calc->operand1 - calc-> operand2 )< INT32_MIN){
       calc->hasError  = true;
         return-1;
     }
-    else return (calc->operand1 + calc-> operand2);
+    else return (calc->operand1 - calc-> operand2);
 }
-int32_t mult(Calculator *calc ){
+//-------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------
+//MULTIPLY THE TWO OPERANDS, 
+int32_t  mult(Calculator *calc ){
      //check for overflow
     if(calc->operand1 * calc-> operand2 > INT32_MAX){
      calc->hasError  = true;
@@ -31,73 +43,96 @@ int32_t mult(Calculator *calc ){
     }
     else return (calc->operand1 * calc-> operand2);
 }
-double div(Calculator *calc ){
-    // //check for division by zero
-    if(calc->operand2 == 0){
+//--------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------
+//devide the two numbers
+//first check for division by zero
+//then check for overflow
+//if all conditions passed, return the divion of the first with the second operand respectively
+int32_t div(Calculator *calc ){
+    //check for division by zero
+    if (calc->operand2 == 0){
         calc->hasError  = true;
         return-2;
     }
-    if(calc->operand1 / calc-> operand2 > INT32_MAX){
+    //check for overflow
+    else if(calc->operand1 == INT32_MIN && calc-> operand2 ==  -1){
       calc->hasError  = true;
         return-1;
     }
-    else return (calc->operand1 + calc-> operand2);
+    else return (calc->operand1 / calc-> operand2);
 }
+//--------------------------------------------------------------------------------------
 
+//---------------------------------------------------------------------------------------
 //returns the result which will be displayed on the screen
-int32_t equals(char operator, Calculator *calc){
-    //if haserror istrue and result is -1 display error
-    if(calc->hasError && result = -1){
-    strcpy(calc->display,"ERROR");
-    return;
-    }
-    else if(if(calc->hasError && result = -2){
-    strcpy(calc->display,"DIVO"));
-    return;
-    }
-    else {
-     strcpy(calc->display,"result");
-     return 0;
+void equals(Calculator *calc){
+    //PASS THE CORRESPONDING ARITHMETIC OPERATION
+    switch(calc->operator){
+      case '+':
+      calc->result = calculate(calc,ADD);
+      if(calc-> hasError && calc-> result < 0)
+      strcpy(calc->display,"ERROR!"); 
+         break;
+     case '-':
+       calc->result = calculate(calc,SUB);
+       if(calc-> hasError && calc-> result < 0)
+      strcpy(calc->display,"ERROR!"); 
+         break;
+     case 'x':
+       calc->result = calculate(calc,MULT);
+       if(calc-> hasError && calc-> result < 0)
+      strcpy(calc->display,"ERROR!"); 
+         break;
+     case '/':
+       calc->result = calculate(calc,DIV);
+       if(calc-> hasError && calc-> result == -2)
+      strcpy(calc->display,"DIV0!"); 
+          break;
+    default:
+        //nop
+        break;
     }
 }
+//------------------------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------------------------
 //resets the display to display cursor
-int32_t clear(Calculator *calc){
+void clear(Calculator *calc){
     strcpy(calc->display,"|");
     calc-> operand1 = 0;
     calc->operand2 = 0;
     calc-> result = 0;
+    calc->operator ='|';
+    calc->hasError = false;
     }
+//-----------------------------------------------------------------------------------------
 
-int32_t calculate ( Calculator *calc , enum OPPERATOR opperator ){
-    int result;
+
+//------------------------------------------------------------------------------------------
+int32_t calculate ( Calculator *calc , enum OPERATOR operator ){
     //FUNCTION POINTER TO POINT TO THE RELEVANT OPERATION
-    int (*operation)( Calculator * );
-     operation operate ;
-    switch(opperator){
+    int32_t (*operation)( Calculator * );
+    switch(operator){
         case(ADD) :
-        operate = add;
+        operation = add;
         break;
          case(SUB) :
+        operation = sub;
         break;
-        operate = sub;
-         case(MUL) :
-         operate = mult;
+         case(MULT) :
+         operation = mult;
         break;
          case(DIV) :
-         operate = div;
+         operation = div;
         break;
-         case(CLEAR) :
-         operate = clear;
-        break;
-         case(EQUAL) :
-         operate = equals;
-        break;
-        default:
-         operate = clear;
-        break;
-
+         default:
+         //NOP
+         ;
+         break;
     }
-    //store value of operation in result
-    result = operate(calc);
-
+    //return the result
+     return  operation(calc);
 }
+//-----------------------------------------------------------------------------------------

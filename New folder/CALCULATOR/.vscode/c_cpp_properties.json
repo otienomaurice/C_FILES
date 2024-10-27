@@ -1,0 +1,36 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/Program Files/Raspberry Pi/Pico SDK v1.5.1/pico-sdk/src/common/pico_stdlib/include",
+                "C:/Users/rossnoa/Documents/pico/ece414-noah-maurice/Lab5",
+                "C:/Users/rossnoa/Documents/pico/pico-sdk",
+                "C:/Users/rossnoa/Documents/pico/pico-sdk/src/host/hardware_timer/include",
+                "C:/Users/rossnoa/Documents/pico/pico-sdk/src/boards/include/boards",
+                "C:/Users/rossnoa/Documents/pico/pico-sdk/src/host/pico_stdio/include",
+                "C:/Users/rossnoa/Documents/pico/pico-sdk/src/common/pico_time/include",
+                "C:/Users/rossnoa/Documents/pico/pico-sdk/src/host/hardware_gpio/include",
+                "C:/Users/rossnoa/Documents/pico/pico-sdk/src/host/hardware_uart/include",
+                "C:/Users/rossnoa/Documents/pico/pico-sdk/src/rp2_common/hardware_adc/include",
+                "C:/Users/rossnoa/Documents/pico/pico-sdk/src/rp2040/hardware_structs/include",
+                "C:/Users/rossnoa/Documents/pico/pico-sdk/src/rp2_common/hardware_base/include",
+                "C:/Users/rossnoa/Documents/pico/pico-sdk/src/rp2040/hardware_regs/include",
+                "C:/Users/rossnoa/Documents/pico/pico-sdk/src/rp2350/hardware_structs/include",
+                "C:/Users/rossnoa/Documents/pico/pico-sdk/src/rp2350/hardware_regs/include"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "windowsSdkVersion": "10.0.22000.0",
+            "compilerPath": "cl.exe",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-msvc-x64"
+        }
+    ],
+    "version": 4
+}

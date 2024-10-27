@@ -2,20 +2,13 @@
 #define CALCULATOR_FSM.C
 #include <stdbool.h>
 #include <stdlib.h>
-//true if C (Clear) is pressed
- bool clear_pressed;
- //true if an error is detected
- bool error;
- //true if operator has been typed in
- bool operator_pressed;
- //true if operand has completly been typed in
- bool operand_pressed;
- //true if the qual sign is pressed
- bool equal_pressed;
+#include "global.h"
 //This fsm is responsible for handling th e states of the calculation
 //THERE ARE FIVE STATES FOR THE CALCULATOR
-enum { INITIAL_STATE, 
-        INPUT_OPERAND,
+typedef enum { INITIAL_STATE, 
+        INPUT_OPERAND1,
+        INPUT_OPERATOR,
+        INPUT_OPERAND2,
         ERROR_STATE,
         RUN_CALCULATION,
         DISPLAY_STATE 

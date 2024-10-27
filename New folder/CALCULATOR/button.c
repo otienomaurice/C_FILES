@@ -2,6 +2,7 @@
 #include "button.h"
 #include "stdint.h"
 #include "stdbool.h"
+#include "global.h"
 
 struct Button createButton(int16_t x, int16_t y, int16_t w, int16_t h, char c)
 {
@@ -52,3 +53,35 @@ void tick_button(struct Button *button, int16_t x, int16_t y, bool isTouched)
         return;
     }
 }
+//------------------------------------------------------------------------------------------
+//initialize each button
+void initButton(struct Button b)
+{
+    buttons[btnCnt] = b;
+    btnCnt++;
+}
+//---------------------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------------------
+//creates all buttons
+void create_All_Buttons(){
+    initButton(createButton(0, 40, 83, 50, '7'));
+    initButton(createButton(83, 40, 83, 50, '8'));
+    initButton(createButton(83 * 2, 40, 83, 50, '9'));
+    initButton(createButton(0, 50 * 1 + 40, 83, 50, '4'));
+    initButton(createButton(83, 50 * 1 + 40, 83, 50, '5'));
+    initButton(createButton(83 * 2, 50 * 1 + 40, 83, 50, '6'));
+
+    initButton(createButton(0, 50 * 2 + 40, 83, 50, '1'));
+    initButton(createButton(83, 50 * 2 + 40, 83, 50, '2'));
+    initButton(createButton(83 * 2, 50 * 2 + 40, 83, 50, '3'));
+    initButton(createButton(0, 50 * 3 + 40, 83, 50, '0'));
+    // the next set of buttons
+    initButton(createButton(83 * 3, 50 * 0 + 40, 83, 50, '+'));
+    initButton(createButton(83 * 3, 50 * 1 + 40, 83, 50, '-'));
+    initButton(createButton(83 * 3, 50 * 2 + 40, 83, 50, '/'));
+    initButton(createButton(83 * 3, 50 * 3 + 40, 83, 50, 'x'));
+    initButton(createButton(83 * 2, 50 * 3 + 40, 83, 50, 'C'));
+    initButton(createButton(83 * 1, 50 * 3 + 40, 83, 50, '='));
+}
+//---------------------------------------------------------------------------------------
