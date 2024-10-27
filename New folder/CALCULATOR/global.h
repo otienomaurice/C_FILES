@@ -21,33 +21,35 @@ extern bool operator_pressed;
  extern bool operand_pressed;
  //true if the qual sign is pressed
 extern bool equal_pressed;
- //true if expecting operand1
- extern bool input_operand1;
- //true if true if expecting operand2
- extern bool input_operand2;
+ //true if operand1 is complete
+ extern bool input_operand1_complete;
 extern int btnCnt = 0;
 //create an array to hold 16 buttons
 extern struct Button buttons[16];
 //--------------------------------------------------------------------------------------
+// concatenates the current display string with the input charact
+void  update_Display(char text);
 // updates the display  string
-void  update_Display(char *text);
+void  set_Display_Result(int32_t result);
+// updates the display  string
+void  set_Display_Error(char *text );
 // clears the display string 
 void  clear_global_Display();
 // sets the two global operands to 0
 void  clear_global_operands();
 // sets the operator to invalid, this does nothing to calculation
-void  clear_global_operands();
+void  clear_global_operator();
 //clears every global variable
 void clear_all();
 //set global operator
-void set_global_operator(){}
+void set_global_operator(char value);
 //set global opernds
-void set_global_operand1(){}
-void set_global_operand1(){}
+void set_global_operand1(int32_t value);
+void set_global_operand1(int32_t value);
 //adds the given value to the operands
 void addToOpperand(int32_t *opperand, int value);
 //
-//updates the operator globally
-void update_operator();
+//updates the operator generically
+void update_operator(char *operator, char value);
 //----------------------------------------------------------------------------------------
 #endif

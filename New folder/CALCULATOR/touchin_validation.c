@@ -3,20 +3,15 @@
 #include "button.h"
 #include "TouchScreen.h"
 #include "global.h"
-
+#include "button.h"
+#include "global.h"
 // int32_t _global_opperand1; 
 // int32_t _global_opperand2 ; 
 //  char  _global_operator;
 //get the first operand
 char button_info_fill(){
-       //assign the x and y coordinates to  x and y when touched and return true
-        uint16_t x, y;
-        bool isTouched = get_ts_lcd(&x, &y);
-          for (int i = 0; i < btnCnt; i++)
-        {
-                tick_button(&buttons[i], x, y, isTouched);
-        }
-        
+     //set the button info, find waht button has been pressed
+    get_touch_info();
          //check for every button, if pressed add the value returned to operand
         for (int i = 0; i < btnCnt; i++)
         {    //if the button is pressed, check if it is a digit, operator or command
@@ -127,5 +122,21 @@ char button_info_fill(){
                      break;
                 }
             }
+            return buttons[i].c;
         }
+        return;
+        
 }
+//-----------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------
+void get_touch_info(){
+        //assign the x and y coordinates to  x and y when touched and return true
+        uint16_t x, y;
+        bool isTouched = get_ts_lcd(&x, &y);
+          for (int i = 0; i < btnCnt; i++)
+        {
+                tick_button(&buttons[i], x, y, isTouched);
+        }
+        
+}
+//------------------------------------------------------------------------------------------------

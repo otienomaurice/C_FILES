@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdlib.h>
 #include "pico/stdlib.h"
 #include "ts_lcd.h"
 #include "button.h"
@@ -9,16 +10,27 @@
 //  int32_t _global_opperand2 ; 
 //  char  _global_operator;
 //--------------------------------------------------------------------------------------
+// concatenates the current string with the input charact
+void  update_Display(char text){
+strcat(_global_display,text);
+}
+//---------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------
 // updates the display  string
-void  update_Display(char *text){
+void  set_Display_Result(int32_t result){
+sprintf(_global_display,"%d",result);
+}
+//---------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------
+// updates the display  string
+void  set_Display_Error(char *text ){
 strcpy(_global_display,text);
 }
 //---------------------------------------------------------------------------------------
-
 //--------------------------------------------------------------------------------------
 // clears the display string 
 void clear_global_Display(){
-strcpy(_global_display,"|");
+strcpy(_global_display," ");
 }
 //---------------------------------------------------------------------------------------
 
@@ -32,7 +44,7 @@ _global_opperand2 = 0;
 
 //--------------------------------------------------------------------------------------
 // sets the operator to invalid, this does nothing to calculation
-void  clear_global_operands(){
+void  clear_global_operator(){
  _global_operator = '|';
 }
 //----------------------------------------------------------------------------------------
@@ -40,7 +52,7 @@ void  clear_global_operands(){
 void clear_all(){
      clear_global_Display();
      clear_global_operands();
-     clear_global_operands();
+     clear_global_operator();
 }
 //----------------------------------------------------------------------------------------
 
@@ -53,7 +65,7 @@ void set_global_operand1(int32_t value){
 
 
 //----------------------------------------------------------------------------------------
-void set_global_operand2( int value){
+void set_global_operand2( int32_t value){
 addToOpperand(&_global_opperand2,value);
 }
 //----------------------------------------------------------------------------------------

@@ -212,21 +212,14 @@ void equals_test(){
     printf("%d , %d , %d \n",calc14.operand1,calc14.operand2, calc14.operand1 / calc14.operand2);
     }
 }
-//-----------------------------------------------------------------------------------------
-void clear_test(){
-equals_test();
-clear();
-}
-
-//-------------------------------------------------------------------------------------------
     int main  (){
-        // addition_test();
-        // subtraction_test();
-        // multiplication_test();
-        // division_test();
-       // calculate_test();
-       // equals_test();
-        clear_test();
+        addition_test();
+        subtraction_test();
+        multiplication_test();
+        division_test();
+       calculate_test();
+       equals_test();
+       
         return 0;
 
     }

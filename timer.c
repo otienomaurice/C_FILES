@@ -4,10 +4,10 @@
 volatile uint16_t overflow_count = 0;
 
 
-// Timer1 overflow interrupt service routine
-void __attribute__((interrupt)) TIMER1_OVF_vect() {
-    overflow_count++;
-}
+// // Timer1 overflow interrupt service routine
+// void __attribute__((interrupt)) TIMER1_OVF_vect() {
+//     overflow_count++;
+// }
 
 void timer1_init() {
     // Set Timer1 to normal mode
