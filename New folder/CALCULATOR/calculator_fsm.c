@@ -22,6 +22,7 @@ void init_calculator_fsm(){
     clear_pressed = false;
     error = false;
     operator_first_press_before_operand = true;
+    negative_operand = false;
     clear_all();
 }
 
@@ -38,6 +39,7 @@ void tick_calculator_fsm(){
              clear_pressed = false;
              error = false;
              operator_first_press_before_operand = true;
+             negative_operand = false;
         //clear the global variables setting them to zero
          clear_all();
         //DSIPLAY CURSOR
@@ -58,16 +60,17 @@ void tick_calculator_fsm(){
      //check for negative
      if(temp == '-' && operator_first_press_before_operand)
      {
-        update_Display(temp);
-        operator_pressed = false;
-        operator_first_press_before_operand = false;
-        //clear global operator
-        clear_global_operator();
-        //set the
+         update_Display(temp);
+         operator_pressed = false;
+         operator_first_press_before_operand = false;
+         clear_global_operator();
+         negative_operand = true;
      }
        if (operator_pressed){
-       input_operand1_complete = true;
-       state = INPUT_OPERATOR;
+         int32_t negate_operand1 = (0 - _global_opperand1);
+         set_global_operand1(negate_operand1);
+         input_operand1_complete = true;
+         state = INPUT_OPERATOR;
        }
        else 
        state = INPUT_OPERAND1;

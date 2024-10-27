@@ -23,8 +23,11 @@ extern bool operator_pressed;
 extern bool equal_pressed;
  //true if operand1 is complete
  extern bool input_operand1_complete;
- //
+ //checks if the - operator haas been pressed before an operand denoting a negative inpu
  extern bool operator_first_press_before_operand;
+ //
+ extern bool negative_operand;
+ //
 extern int btnCnt = 0;
 //create an array to hold 16 buttons
 extern struct Button buttons[16];
