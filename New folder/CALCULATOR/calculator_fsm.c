@@ -41,9 +41,9 @@ void tick_calculator_fsm(){
              operator_first_press_before_operand = true;
              negative_operand = false;
         //clear the global variables setting them to zero
-         clear_all();
+              clear_all();
         //DSIPLAY CURSOR
-        display_text();
+             display_text();
         //update state 
              if(clear_pressed)
                  state = INITIAL_STATE;
@@ -52,29 +52,33 @@ void tick_calculator_fsm(){
      break;
 
     case INPUT_OPERAND1:
-    //if button fill returns an operator, set the input to completed
-    //advance  to the operator state
-    display_text();
-    //this will either update the operands , the operator , or set clear pressed or equals pressed
-    char temp = button_info_fill();
-     //check for negative
-     if(temp == '-' && operator_first_press_before_operand)
-     {
-         update_Display(temp);
-         operator_pressed = false;
-         operator_first_press_before_operand = false;
-         clear_global_operator();
-         negative_operand = true;
-     }
-       if (operator_pressed){
-         int32_t negate_operand1 = (0 - _global_opperand1);
-         set_global_operand1(negate_operand1);
-         input_operand1_complete = true;
-         state = INPUT_OPERATOR;
+                 display_text();
+                 //this will either update the operands , the operator , or set clear pressed or equals pressed
+                 char temp = button_info_fill();
+                update_Display(temp);
+        //check for negative
+        if(temp == '-' && operator_first_press_before_operand)
+                 {
+                 update_Display(temp);
+                 operator_pressed = false;
+                 operator_first_press_before_operand = false;
+                 clear_global_operator();
+                 negative_operand = true;
+                 }
+         //if button fill returns an operator, set the input to completed
+        //advance  to the operator state
+         if (operator_pressed){
+             if(negative_operand){
+                  int32_t negate_operand1 = (0 - _global_opperand1);
+                  set_global_operand1(negate_operand1);
+                }
+                  input_operand1_complete = true;
+                  state = INPUT_OPERATOR;
        }
-       else 
-       state = INPUT_OPERAND1;
-        break;
+         else {
+                 state = INPUT_OPERAND1;
+       }
+     break;
    
     case INPUT_OPERATOR:
      char temp = button_info_fill();

@@ -10,17 +10,17 @@
  //global state display
  //wilol be used to display all the text to the screen 
  extern char _global_display[50];
-//
-//true if C (Clear) is pressed
+ //
+  //true if C (Clear) is pressed
  extern bool clear_pressed;
  //true if an error is detected
  extern bool error;
  //true if operator has been typed in
-extern bool operator_pressed;
+ extern bool operator_pressed;
  //true if operand has completly been typed in
  extern bool operand_pressed;
  //true if the qual sign is pressed
-extern bool equal_pressed;
+ extern bool equal_pressed;
  //true if operand1 is complete
  extern bool input_operand1_complete;
  //checks if the - operator haas been pressed before an operand denoting a negative inpu
@@ -28,9 +28,9 @@ extern bool equal_pressed;
  //
  extern bool negative_operand;
  //
-extern int btnCnt = 0;
-//create an array to hold 16 buttons
-extern struct Button buttons[16];
+ extern int btnCnt = 0;
+ //create an array to hold 16 buttons
+ extern struct Button buttons[16];
 //--------------------------------------------------------------------------------------
 // concatenates the current display string with the input charact
 void  update_Display(char text);

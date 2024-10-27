@@ -42,51 +42,12 @@ create_All_Buttons();
         {
             if (timer_elapsed_ms(buttons[i].time, current_time) >= BUTTON_PRESSED_MS)
             {
-                tick_button(&buttons[i], x, y, isTouched);
-                button_debounce_time = current_time;
             }
         }
-//check for every button, if pressed add the value returned to operand
-        for (int i = 0; i < btnCnt; i++)
-        {    //if the button is pressed, check if it is a digit, operator or command
-            if (buttons[i].pressed)
-            {
-                
-                switch(buttons[i].c){
-                     case 'c':
-                         clear_display();
-                     break;
-                
-                //if button is an equals
-                     case '=': 
-                         //do calculation
-                         //set result to value of calculation
-                         //display the result
-                     break;
-                //if button is an operator, update the operator
-                     case '+':
-                     update_operator(&operator,'+');
-                     break;
-                     case '-':
-                     update_operator(&operator,'-');
-                     break;
-                     case 'x':
-                     update_operator(&operator,'x');
-                     break;
-                     case '/':
-                     update_operator(&operator,'/');
-                     break;
-                    default:
-                     int value = buttons[i].c & 0b00001111;
-                     addToOpperand(&opperand1, (float)value);
 
-                     break;
-                }
                 
                 
 
                 
             }
         }
-
-}
