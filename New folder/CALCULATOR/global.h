@@ -46,7 +46,6 @@ void set_global_operand1(int32_t value);
 void set_global_operand1(int32_t value);
 //adds the given value to the operands
 void addToOpperand(int32_t *opperand, int value);
-//
 //updates the operator generically
 void update_operator(char *operator, char value);
 //----------------------------------------------------------------------------------------

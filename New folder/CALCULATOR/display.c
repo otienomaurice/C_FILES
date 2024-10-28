@@ -1,5 +1,4 @@
-#include <string.h>
-#include "pico/stdlib.h"
+
 #include "ts_lcd.h"
 #include "button.h"
 #include "global.h"

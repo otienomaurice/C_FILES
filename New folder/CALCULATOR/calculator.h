@@ -21,13 +21,19 @@ enum OPERATOR
     bool hasError;
 } Calculator;
 
-
+//add
 int32_t add( Calculator *calc);
+//subtrac
 int32_t sub(Calculator *calc);
+//multiply
 int32_t mult(Calculator *calc );
+//divide
 int32_t div(Calculator *calc );
+//decode operator and calculate resul
 void equals(Calculator *calc );
-void clear(Calculator *calc );
+//clear the structure
+void clear_calc(Calculator *calc );
+//run arithmetic operation on the structure operands
 int32_t calculate ( Calculator *calc,enum OPERATOR operator);
 
 

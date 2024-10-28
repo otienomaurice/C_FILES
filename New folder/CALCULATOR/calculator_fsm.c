@@ -16,6 +16,7 @@ void init_calculator_fsm(){
      operator_first_press_before_operand = true;
      second_operator_pressed_after_operand2 =false;
      negative_operand = false;
+     clear_calc();
      clear_all();
      state = INITIAL_STATE;
 }

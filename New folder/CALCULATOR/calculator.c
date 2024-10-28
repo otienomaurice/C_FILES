@@ -99,7 +99,7 @@ void equals(Calculator *calc){
 
 // //-------------------------------------------------------------------------------------------
 // //resets the display to display cursor
-void clear(Calculator *calc){
+void clear_calc(Calculator *calc){
     strcpy(calc->display," ");
     calc-> operand1 = 0;
     calc->operand2 = 0;
