@@ -17,7 +17,7 @@
  extern bool error;
  //true if operator has been typed in
  extern bool operator_pressed;
- //true if operand has completly been typed in
+ //true if operand has been pressed
  extern bool operand_pressed;
  //true if the qual sign is pressed
  extern bool equal_pressed;

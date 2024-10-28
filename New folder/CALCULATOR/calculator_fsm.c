@@ -14,7 +14,7 @@ void init_calculator_fsm(){
      clear_pressed = false;
      input_operand2_complete;
      operator_first_press_before_operand = true;
-     second_operator_pressed_after_operand2 false;
+     second_operator_pressed_after_operand2 =false;
      negative_operand = false;
      clear_all();
      state = INITIAL_STATE;
@@ -31,6 +31,7 @@ void tick_calculator_fsm(){
              equal_pressed = false;
              clear_pressed = false;
              operator_first_press_before_operand = true;
+             operator_first_press_before_operand = true;
              negative_operand = false;
         //clear the global variables setting them to zero
               clear_all();
@@ -46,12 +47,16 @@ void tick_calculator_fsm(){
     case INPUT_OPERAND1:
                  display_text();
                  if(input_operand1_complete){
+                 update_Display(_global_operator);
                  state = INPUT_OPERATOR;
                  }
                  else{
                  //this will either update the operands , the operator , or set clear pressed or equals pressed
                  char temp = button_info_fill();
+                 if(operand_pressed){
                  update_Display(temp);
+                 operand_pressed = false;
+                 }
                  //check for negative
                  if(temp == '-' && operator_first_press_before_operand)
                  {
@@ -85,6 +90,10 @@ void tick_calculator_fsm(){
      case INPUT_OPERAND2:
          display_text();
          char temp = button_info_fill();
+         if(operand_pressed){
+            update_Display(temp);
+            operand_pressed = false;
+         }
        if(clear_pressed){
          state = INITIAL_STATE;
         }
@@ -94,23 +103,25 @@ void tick_calculator_fsm(){
          state = RUN_CALCULATION;
         }
        else  if (equal_pressed){
-
         state = RUN_CALCULATION;
+      }
+      else{
+        state = INPUT_OPERAND2;
       }
          break;
      case RUN_CALCULATION:
      display_text();
      if(second_operator_pressed_after_operand2){
+        second_operator_pressed_after_operand2 = false;
         equals(&calc);
-        if(calc.hasError)
-           {
+        if(calc.hasError){
         //if error occurs, set the display to result
      set_Display_Error(calc.display);
      state = ERROR_STATE;
      }
      else{
           set_global_operand1(calc.result);
-          second_operator_pressed_after_operand2 = false;
+          set_Display_Result(calc.result);
           state =INPUT_OPERAND1;
          }
      }
