@@ -1,7 +1,8 @@
-#include <inttypes.h>
-#include <stdbool.h>
+
 #ifndef CALCULATOR_H
 #define CALCULATOR_H
+#include <inttypes.h>
+#include <stdbool.h>
 //DEFINE THE CALCULATOR STRUCT
 //DEFINE ENUMS FOR OPERATORS
 enum OPERATOR
