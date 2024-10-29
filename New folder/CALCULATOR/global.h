@@ -21,7 +21,7 @@
  extern bool operand_pressed;
  //true if the qual sign is pressed
  extern bool equal_pressed;
- extern int btnCnt = 0;
+ extern int btnCnt;
  //create an array to hold 16 buttons
  extern struct Button buttons[16];
 //--------------------------------------------------------------------------------------
@@ -43,7 +43,7 @@ void clear_all();
 void set_global_operator(char value);
 //set global opernds
 void set_global_operand1(int32_t value);
-void set_global_operand1(int32_t value);
+void set_global_operand2(int32_t value);
 //adds the given value to the operands
 void addToOpperand(int32_t *opperand, int value);
 //updates the operator generically

@@ -1,13 +1,14 @@
-#ifndef CALCULATOR_FSM.C
-#define CALCULATOR_FSM.C
+#ifndef CALCULATOR_FSM_H
+#define CALCULATOR_FSM_H
 #include <stdbool.h>
 #include <stdlib.h>
-//This fsm is responsible for handling th e states of the calculation
+#include "calculator.h"
+ //This fsm is responsible for handling th e states of the calculation
   //initialize calculator with desired values
   //true if operand1 is complete
- static bool input_operand1_complete;
-//
-static bool input_operand2_complete;
+ extern bool input_operand1_complete;
+ //
+ //static bool input_operand2_complete;
  //checks if the - operator haas been pressed before an operand denoting a negative inpu
  static bool operator_first_press_before_operand;
  //set true if the keyed operand is negative
@@ -15,9 +16,9 @@ static bool input_operand2_complete;
  static bool second_operator_pressed_after_operand2;
  static bool negative_operand;
  //
-  static Calculator calc ; 
-//THERE ARE FIVE STATES FOR THE CALCULATOR
-typedef enum { INITIAL_STATE, 
+ extern Calculator calc ; 
+ //THERE ARE FIVE STATES FOR THE CALCULATOR
+ typedef enum { INITIAL_STATE, 
         INPUT_OPERAND1,
         INPUT_OPERATOR,
         INPUT_OPERAND2,

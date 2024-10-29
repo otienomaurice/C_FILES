@@ -50,7 +50,7 @@ int32_t  mult(Calculator *calc ){
 //first check for division by zero
 //then check for overflow
 //if all conditions passed, return the divion of the first with the second operand respectively
-int32_t div(Calculator *calc ){
+int32_t _div(Calculator *calc ){
     //check for division by zero
     if (calc->operand2 == 0){
         calc->hasError  = true;
@@ -125,7 +125,7 @@ int32_t calculate ( Calculator *calc , enum OPERATOR operator ){
          operation = mult;
         break;
          case(DIV) :
-         operation = div;
+         operation = _div;
         break;
          default:
          //NOP

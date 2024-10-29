@@ -7,16 +7,16 @@
 #include "touchin_validation.h"
 #include "display.h"
 //initializes the calculator fsm
+bool input_operand1_complete;
+ Calculator calc ;
 void init_calculator_fsm(){
-     state = INITIAL_STATE;
      operand_pressed = false;
      equal_pressed = false;
      clear_pressed = false;
-     input_operand2_complete;
      operator_first_press_before_operand = true;
      second_operator_pressed_after_operand2 =false;
      negative_operand = false;
-     clear_calc();
+     clear_calc(&calc);
      clear_all();
      state = INITIAL_STATE;
 }
@@ -34,7 +34,7 @@ void tick_calculator_fsm(){
              operator_first_press_before_operand = true;
              operator_first_press_before_operand = true;
              negative_operand = false;
-             clear_calc();
+             clear_calc(&calc);
              clear_all();
              display_text();
              if(clear_pressed)

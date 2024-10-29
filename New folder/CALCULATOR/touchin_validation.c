@@ -1,14 +1,11 @@
 
 #include "stdbool.h"
 #include "button.h"
-#include "TouchScreen.h"
+#include "ts_lcd.h"
 #include "global.h"
 #include "button.h"
-#include "global.h"
-// int32_t _global_opperand1; 
-// int32_t _global_opperand2 ; 
-//  char  _global_operator;
-//get the first operand
+#include "touchin_validation.h"
+#include "calculator_fsm.h"
 char button_info_fill(){
      //set the button info, find waht button has been pressed
     get_touch_info();
@@ -48,70 +45,70 @@ char button_info_fill(){
                      break;
                 //if button is an operand
                      case '0':
-                     if( input_operand2)
+                     if( input_operand1_complete)
                      set_global_operand2(0);
                      else
                      set_global_operand1(0);
                      operand_pressed = true;
                      break;
                       case '1':
-                     if( input_operand2)
+                     if( input_operand1_complete)
                      set_global_operand2(2);
                      else
                      set_global_operand1(2);
                      operand_pressed = true;
                      break;
                       case '2':
-                     if( input_operand2)
+                     if( input_operand1_complete)
                      set_global_operand2(2);
                      else
                      set_global_operand1(2);
                      operand_pressed = true;
                      break;
                       case '3':
-                     if( input_operand2)
+                     if( input_operand1_complete)
                      set_global_operand2(3);
                      else
                      set_global_operand1(3);
                      operand_pressed = true;
                      break;
                       case '4':
-                     if( input_operand2)
+                     if( input_operand1_complete)
                      set_global_operand2(4);
                      else
                      set_global_operand1(4);
                      operand_pressed = true;
                      break;
                       case '5':
-                     if( input_operand2)
+                     if( input_operand1_complete)
                      set_global_operand2(5);
                      else
                      set_global_operand1(5);
                      operand_pressed = true;
                      break;
                       case '6':
-                     if( input_operand2)
+                     if( input_operand1_complete)
                      set_global_operand2(6);
                      else
                      set_global_operand1(6);
                      operand_pressed = true;
                      break;
                       case '7':
-                     if( input_operand2)
+                     if( input_operand1_complete)
                      set_global_operand2(7);
                      else
                      set_global_operand1(7);
                      operand_pressed = true;
                      break;
                       case '8':
-                     if( input_operand2)
+                     if( input_operand1_complete)
                      set_global_operand2(8);
                      else
                      set_global_operand1(8);
                      operand_pressed = true;
                      break;
                       case '9':
-                     if( input_operand2)
+                     if( input_operand1_complete)
                      set_global_operand2(9);
                      else
                      set_global_operand1(9);
@@ -124,7 +121,7 @@ char button_info_fill(){
             }
             return buttons[i].c;
         }
-        return;
+        return ' ';
         
 }
 //-----------------------------------------------------------------------------------------------

@@ -4,5 +4,5 @@
 //populates t
 char button_info_fill();
 //find which button has been pressed
-get_touch_info();
+void get_touch_info();
 #endif

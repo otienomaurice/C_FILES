@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include "pico/stdlib.h"
 #include "ts_lcd.h"
@@ -12,7 +13,7 @@
 //--------------------------------------------------------------------------------------
 // concatenates the current string with the input charact
 void  update_Display(char text){
-strcat(_global_display,text);
+strcat(_global_display,&text);
 }
 //---------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------

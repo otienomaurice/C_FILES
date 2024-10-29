@@ -29,7 +29,7 @@ int32_t sub(Calculator *calc);
 //multiply
 int32_t mult(Calculator *calc );
 //divide
-int32_t div(Calculator *calc );
+int32_t _div(Calculator *calc );
 //decode operator and calculate resul
 void equals(Calculator *calc );
 //clear the structure
